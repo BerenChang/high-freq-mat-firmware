@@ -6,6 +6,7 @@ import threading
 SERIAL_PORT = "/dev/ttyACM0"
 BAUD_RATE = 115200
 START_READING_COMMAND = "start_reading"
+STOP_READING_COMMAND = "stop_reading"
 GET_CAL_VALS_COMMAND  = "get_cal_vals"
 PRINT_INFO_COMMAND    = "print_info"
 VERIFICATION_WIDTH = 4
@@ -118,6 +119,12 @@ def read_serial():
         # else:
         #     print_count += 1
         data_buffer = subarray.tolist()
+
+        print_count += 1
+
+        if print_count > 100:
+            ser.write((STOP_READING_COMMAND + '\n').encode('utf-8'))
+            break
 
 
 def read_serial_once():

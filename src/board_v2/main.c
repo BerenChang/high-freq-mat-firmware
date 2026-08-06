@@ -2,8 +2,11 @@
 main.c file for V2 of the RPi Pico of the PMI
 */
 
+#include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 #include "hardware/gpio.h"
@@ -14,16 +17,62 @@ main.c file for V2 of the RPi Pico of the PMI
 #include "matterface.h"
 #include "custom_multicore.h"
 
-#define LED_PIN         25
+#define LED_PIN             25
+#define INPUT_BUFFER_SIZE   256
+#define NO_COMMAND_AVAILABLE 0
 
-// The queue that passes data from core0 to core1 
+// The queue that passes data from core0 to core1
 queue_t queue;
 
-int core1_main() {
+/*
+ * Read one newline-terminated command from USB serial.
+ *
+ * In blocking mode this waits for a complete command. In non-blocking mode it
+ * consumes all currently available characters and returns
+ * NO_COMMAND_AVAILABLE when no complete line has arrived yet. input_pointer is
+ * retained between calls so commands can arrive in several USB packets.
+ */
+static int receive_command(char *input_string,
+                           size_t *input_pointer,
+                           bool blocking)
+{
+    while (true) {
+        int ch = blocking ? getchar() : getchar_timeout_us(0);
+
+        if (ch == PICO_ERROR_TIMEOUT) {
+            if (blocking) {
+                continue;
+            }
+            return NO_COMMAND_AVAILABLE;
+        }
+
+        if ((ch == '\n') || (ch == '\r')) {
+            // Ignore the second character in a CRLF pair and other blank lines.
+            if (*input_pointer == 0) {
+                continue;
+            }
+
+            input_string[*input_pointer] = '\0';
+            *input_pointer = 0;
+            return parse_input(input_string);
+        }
+
+        if (*input_pointer < (INPUT_BUFFER_SIZE - 1)) {
+            input_string[*input_pointer] = (char)ch;
+            (*input_pointer)++;
+        }
+        // If the line is too long, keep the truncated command and reject it
+        // when its newline arrives rather than writing beyond the buffer.
+    }
+}
+
+int core1_main()
+{
     /*
-    Core 1 handles transmitting the mat data to the connected computer in parallel with mat reads
-    As data is recieved on the queue, send it over serial sequentially. Once a full mat read has been sent, send the verificaation sequence
-    */  
+    Core 1 handles transmitting the mat data to the connected computer in parallel with mat reads.
+    As data is received on the queue, send it over serial sequentially. Once a full mat read has
+    been sent, send the verification sequence.
+    */
 
     int i;
     struct queueItem temp;
@@ -35,13 +84,13 @@ int core1_main() {
         }
 
         transmit_verification();
-    }   
+    }
 
     return 1;   // should never exit
 }
 
-
-int main() {
+int main()
+{
     initialize_transmitter();
 
     // Delay with some LED blinking on startup
@@ -54,7 +103,7 @@ int main() {
         gpio_put(LED_PIN, 1);
     }
 
-    // initialize the adcs 
+    // initialize the adcs
     struct adc_inst *adc1 = malloc(sizeof(struct adc_inst));
     struct adc_inst *adc2 = malloc(sizeof(struct adc_inst));
     initialize_adcs(adc1, adc2, true);  // true for dual_channel mode
@@ -71,43 +120,64 @@ int main() {
     // start up the second core
     launch_core1((void *)core1_main);
 
-    // Parse commands from the GUI before entering a session
-	char input_string[256];
-	uint32_t input_pointer, ch, parsed_command;
-    while(1) {
-        input_pointer = 0;
-        while(1) {
-            ch=getchar();
-            if ((ch=='\n') || (ch=='\r')) {
-                input_string[input_pointer]=0;
-                break;
+    char input_string[INPUT_BUFFER_SIZE];
+    size_t input_pointer = 0;
+    bool continuous_reading = false;
+
+    while (1) {
+        if (continuous_reading) {
+            /*
+             * Finish one complete frame before checking for stop_reading. This
+             * guarantees that core 1 never receives a partial 56-row frame and
+             * therefore never blocks halfway through a transmission.
+             */
+            read_mat(&queue, adc1, adc2);
+
+            int parsed_command;
+            while ((parsed_command = receive_command(input_string,
+                                                       &input_pointer,
+                                                       false))
+                   != NO_COMMAND_AVAILABLE) {
+                if (parsed_command == STOP_READING_COMMAND_ID) {
+                    continuous_reading = false;
+                    clear_shreg();
+                    gpio_put(LED_PIN, 1);
+                    break;
+                }
+
+                // Other commands are intentionally ignored while binary mat
+                // data is being streamed so text cannot corrupt a frame.
             }
-			input_string[input_pointer]=ch;
-			input_pointer++;
+
+            continue;
         }
 
-        parsed_command = parse_input(input_string);
+        // When stopped, wait for the next complete command from the host.
+        int parsed_command = receive_command(input_string, &input_pointer, true);
+
         if (parsed_command == START_READING_COMMAND_ID) {
-            // break the input loop to move to the main loop and start reading the mat
+            // Clear row selection; read_mat() reinitializes all per-frame ADC state.
+            clear_shreg();
+            continuous_reading = true;
             gpio_put(LED_PIN, 0);
-            break;    
+        }
+        else if (parsed_command == STOP_READING_COMMAND_ID) {
+            // stop_reading is idempotent when the board is already stopped.
+            clear_shreg();
+            gpio_put(LED_PIN, 1);
         }
         else if (parsed_command == GET_CAL_VALS_COMMAND_ID) {
             // perform one read of the mat and transmit it to the GUI
+            clear_shreg();
             read_mat(&queue, adc1, adc2);
-        } 
+        }
         else if (parsed_command == PRINT_INFO_COMMAND_ID) {
             // print code info
             printf("This is PressureMat software for board v2!\n");
-        } 
+        }
         else {
             printf("Unrecognized command\n");
         }
-    }
-    
-    while (1) {
-        // read the mat continuously until power-down
-        read_mat(&queue, adc1, adc2);
     }
 
     return 1;   // should never exit

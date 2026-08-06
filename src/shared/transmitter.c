@@ -10,18 +10,20 @@ C file responsible for sending data over serial usb to the computer
 #include "matterface.h"
 #include "transmitter.h"
 
-
 int parse_input(char *string)
 {
-    // check if the command to start reading the mat has been issued
-    if (!strncmp(string, START_READING_COMMAND, sizeof(string))) {
-		// start reading the mat
+    // Use exact comparisons. The old sizeof(string) expression only compared
+    // the first 4/8 bytes because string is a pointer.
+    if (strcmp(string, START_READING_COMMAND) == 0) {
         return START_READING_COMMAND_ID;
-	}
-    else if (!strncmp(string, GET_CAL_VALS_COMMAND, sizeof(string))) {
+    }
+    else if (strcmp(string, STOP_READING_COMMAND) == 0) {
+        return STOP_READING_COMMAND_ID;
+    }
+    else if (strcmp(string, GET_CAL_VALS_COMMAND) == 0) {
         return GET_CAL_VALS_COMMAND_ID;
     }
-    else if (!strncmp(string, PRINT_INFO_COMMAND, sizeof(string))) {
+    else if (strcmp(string, PRINT_INFO_COMMAND) == 0) {
         return PRINT_INFO_COMMAND_ID;
     }
     else {
@@ -42,8 +44,6 @@ void transmit_verification()
     putchar_raw(254);
     putchar_raw(254);
     putchar_raw(255);
-
-    fflush(stdout);
 }
 
 void transmit_row(uint8_t *row)
@@ -53,7 +53,7 @@ void transmit_row(uint8_t *row)
     for (i = 0; i < ROW_WIDTH; i++) {
         putchar_raw(row[i]);
     }
-    // fflush(stdout);
+    fflush(stdout);
 
     // does not close with newline: to finish transmission, send the verification sequence
 }
@@ -61,7 +61,6 @@ void transmit_row(uint8_t *row)
 void transmit_mat(uint8_t *mat)
 {
     sleep_ms(THROTTLE_SLEEP_MS);    // THROTTLE_SLEEP_MS set by CMake
-
     int i;
     for (i = 0; i < COL_HEIGHT; i++) {
         transmit_row(mat + (i * ROW_WIDTH));

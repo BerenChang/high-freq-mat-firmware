@@ -9,14 +9,15 @@ Header file responsible for communicating via the USB 1.1 serial connection to t
 #include <stdint.h>
 #include "pico/stdlib.h"
 
-
 #define START_READING_COMMAND   "start_reading"
+#define STOP_READING_COMMAND    "stop_reading"
 #define GET_CAL_VALS_COMMAND    "get_cal_vals"
 #define PRINT_INFO_COMMAND      "print_info"
 
 #define START_READING_COMMAND_ID    1
 #define GET_CAL_VALS_COMMAND_ID     2
 #define PRINT_INFO_COMMAND_ID       3
+#define STOP_READING_COMMAND_ID     4
 
 /*
 Function which takes a string that has passed over serial and decides what to do based on its content

@@ -1,5 +1,7 @@
 CMakeFiles/board_v2.dir/src/board_v2/main.c.o: \
  /home/beren/Documents/xq/high-freq-firmware/src/board_v2/main.c \
+ /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h \
+ /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h \
  /usr/local/arm-none-eabi/include/stdio.h \
  /usr/local/arm-none-eabi/include/_ansi.h \
  /usr/local/arm-none-eabi/include/newlib.h \
@@ -9,7 +11,6 @@ CMakeFiles/board_v2.dir/src/board_v2/main.c.o: \
  /usr/local/arm-none-eabi/include/sys/features.h \
  /usr/local/arm-none-eabi/include/sys/cdefs.h \
  /usr/local/arm-none-eabi/include/machine/_default_types.h \
- /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h \
  /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h \
  /usr/local/arm-none-eabi/include/sys/reent.h \
  /usr/local/arm-none-eabi/include/_ansi.h \
@@ -36,7 +37,6 @@ CMakeFiles/board_v2.dir/src/board_v2/main.c.o: \
  /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico.h \
  /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico/types.h \
  /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico/assert.h \
- /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h \
  /usr/local/arm-none-eabi/include/assert.h \
  /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdint.h \
  /usr/local/arm-none-eabi/include/stdint.h \
