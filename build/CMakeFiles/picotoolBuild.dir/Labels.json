@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/CMakeFiles/picotoolBuild"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/CMakeFiles/picotoolBuild.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/CMakeFiles/picotoolBuild-complete.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/picotool/src/picotoolBuild-stamp/picotoolBuild-build.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/picotool/src/picotoolBuild-stamp/picotoolBuild-configure.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/picotool/src/picotoolBuild-stamp/picotoolBuild-download.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/picotool/src/picotoolBuild-stamp/picotoolBuild-install.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/picotool/src/picotoolBuild-stamp/picotoolBuild-mkdir.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/picotool/src/picotoolBuild-stamp/picotoolBuild-patch.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/picotool/src/picotoolBuild-stamp/picotoolBuild-test.rule"
+		},
+		{
+			"file" : "/home/beren/Documents/xq/high-freq-firmware/build/picotool/src/picotoolBuild-stamp/picotoolBuild-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"picotoolBuild"
+		],
+		"name" : "picotoolBuild"
+	}
+}

@@ -1,0 +1,7 @@
+/home/beren/Documents/xq/high-freq-firmware/build/_deps/picotool/picotool
+/home/beren/Documents/xq/high-freq-firmware/build/_deps/picotool/picotoolTargets.cmake
+/home/beren/Documents/xq/high-freq-firmware/build/_deps/picotool/picotoolTargets-release.cmake
+/home/beren/Documents/xq/high-freq-firmware/build/_deps/picotool/picotoolConfig.cmake
+/home/beren/Documents/xq/high-freq-firmware/build/_deps/picotool/picotoolConfigVersion.cmake
+/home/beren/Documents/xq/high-freq-firmware/build/_deps/picotool/enc_bootloader.elf
+/home/beren/Documents/xq/high-freq-firmware/build/_deps/picotool/enc_bootloader_mbedtls.elf
