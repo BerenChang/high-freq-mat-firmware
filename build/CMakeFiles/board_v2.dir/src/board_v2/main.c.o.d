@@ -93,4 +93,8 @@ CMakeFiles/board_v2.dir/src/board_v2/main.c.o: \
  /home/beren/Documents/xq/high-freq-firmware/inc/shared/transmitter.h \
  /home/beren/Documents/xq/high-freq-firmware/inc/shared/adc.h \
  /home/beren/Documents/xq/high-freq-firmware/inc/board_v2/matterface.h \
- /home/beren/Documents/xq/high-freq-firmware/inc/shared/custom_multicore.h
+ /home/beren/Documents/xq/pico-sdk/src/rp2_common/pico_multicore/include/pico/multicore.h \
+ /home/beren/Documents/xq/pico-sdk/src/common/pico_sync/include/pico/sync.h \
+ /home/beren/Documents/xq/pico-sdk/src/common/pico_sync/include/pico/sem.h \
+ /home/beren/Documents/xq/pico-sdk/src/common/pico_sync/include/pico/mutex.h \
+ /home/beren/Documents/xq/pico-sdk/src/common/pico_sync/include/pico/critical_section.h

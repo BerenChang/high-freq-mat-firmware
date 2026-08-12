@@ -30,6 +30,10 @@ CMakeFiles/board_v2.dir/src/board_v2/matterface.c.o: \
  /usr/local/arm-none-eabi/include/machine/types.h \
  /usr/local/arm-none-eabi/include/sys/stdio.h \
  /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h \
+ /usr/local/arm-none-eabi/include/string.h \
+ /usr/local/arm-none-eabi/include/xlocale.h \
+ /usr/local/arm-none-eabi/include/strings.h \
+ /usr/local/arm-none-eabi/include/sys/string.h \
  /home/beren/Documents/xq/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
  /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico.h \
  /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico/types.h \

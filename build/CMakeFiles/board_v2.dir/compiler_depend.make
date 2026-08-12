@@ -3913,6 +3913,8 @@ CMakeFiles/board_v2.dir/home/beren/Documents/xq/pico-sdk/src/rp2_common/pico_uni
   /home/beren/Documents/xq/pico-sdk/src/rp2_common/pico_unique_id/include/pico/unique_id.h
 
 CMakeFiles/board_v2.dir/src/board_v2/main.c.o: /home/beren/Documents/xq/high-freq-firmware/src/board_v2/main.c \
+  /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h \
+  /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h \
   /usr/local/arm-none-eabi/include/stdio.h \
   /usr/local/arm-none-eabi/include/_ansi.h \
   /usr/local/arm-none-eabi/include/newlib.h \
@@ -3922,7 +3924,6 @@ CMakeFiles/board_v2.dir/src/board_v2/main.c.o: /home/beren/Documents/xq/high-fre
   /usr/local/arm-none-eabi/include/sys/features.h \
   /usr/local/arm-none-eabi/include/sys/cdefs.h \
   /usr/local/arm-none-eabi/include/machine/_default_types.h \
-  /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stddef.h \
   /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdarg.h \
   /usr/local/arm-none-eabi/include/sys/reent.h \
   /usr/local/arm-none-eabi/include/_ansi.h \
@@ -3949,7 +3950,6 @@ CMakeFiles/board_v2.dir/src/board_v2/main.c.o: /home/beren/Documents/xq/high-fre
   /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico.h \
   /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico/types.h \
   /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico/assert.h \
-  /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h \
   /usr/local/arm-none-eabi/include/assert.h \
   /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdint.h \
   /usr/local/arm-none-eabi/include/stdint.h \
@@ -4006,7 +4006,11 @@ CMakeFiles/board_v2.dir/src/board_v2/main.c.o: /home/beren/Documents/xq/high-fre
   /home/beren/Documents/xq/high-freq-firmware/inc/shared/transmitter.h \
   /home/beren/Documents/xq/high-freq-firmware/inc/shared/adc.h \
   /home/beren/Documents/xq/high-freq-firmware/inc/board_v2/matterface.h \
-  /home/beren/Documents/xq/high-freq-firmware/inc/shared/custom_multicore.h
+  /home/beren/Documents/xq/pico-sdk/src/rp2_common/pico_multicore/include/pico/multicore.h \
+  /home/beren/Documents/xq/pico-sdk/src/common/pico_sync/include/pico/sync.h \
+  /home/beren/Documents/xq/pico-sdk/src/common/pico_sync/include/pico/sem.h \
+  /home/beren/Documents/xq/pico-sdk/src/common/pico_sync/include/pico/mutex.h \
+  /home/beren/Documents/xq/pico-sdk/src/common/pico_sync/include/pico/critical_section.h
 
 CMakeFiles/board_v2.dir/src/board_v2/matterface.c.o: /home/beren/Documents/xq/high-freq-firmware/src/board_v2/matterface.c \
   /usr/local/arm-none-eabi/include/stdio.h \
@@ -4039,6 +4043,10 @@ CMakeFiles/board_v2.dir/src/board_v2/matterface.c.o: /home/beren/Documents/xq/hi
   /usr/local/arm-none-eabi/include/machine/types.h \
   /usr/local/arm-none-eabi/include/sys/stdio.h \
   /usr/local/lib/gcc/arm-none-eabi/7.3.1/include/stdbool.h \
+  /usr/local/arm-none-eabi/include/string.h \
+  /usr/local/arm-none-eabi/include/xlocale.h \
+  /usr/local/arm-none-eabi/include/strings.h \
+  /usr/local/arm-none-eabi/include/sys/string.h \
   /home/beren/Documents/xq/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
   /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico.h \
   /home/beren/Documents/xq/pico-sdk/src/common/pico_base_headers/include/pico/types.h \

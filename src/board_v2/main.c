@@ -15,7 +15,7 @@ main.c file for V2 of the RPi Pico of the PMI
 #include "transmitter.h"
 #include "adc.h"
 #include "matterface.h"
-#include "custom_multicore.h"
+#include "pico/multicore.h"
 
 #define LED_PIN             25
 #define INPUT_BUFFER_SIZE   256
@@ -66,14 +66,8 @@ static int receive_command(char *input_string,
     }
 }
 
-int core1_main()
+void core1_main()
 {
-    /*
-    Core 1 handles transmitting the mat data to the connected computer in parallel with mat reads.
-    As data is received on the queue, send it over serial sequentially. Once a full mat read has
-    been sent, send the verification sequence.
-    */
-
     int i;
     struct queueItem temp;
 
@@ -85,8 +79,6 @@ int core1_main()
 
         transmit_verification();
     }
-
-    return 1;   // should never exit
 }
 
 int main()
@@ -118,7 +110,7 @@ int main()
     queue_init(&queue, sizeof(item), COL_HEIGHT * 2);
 
     // start up the second core
-    launch_core1((void *)core1_main);
+    multicore_launch_core1(core1_main);
 
     char input_string[INPUT_BUFFER_SIZE];
     size_t input_pointer = 0;

@@ -4,6 +4,7 @@ Mat interface code for V2 of the PMI software
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
@@ -127,7 +128,7 @@ void EOC_callback(uint gpio, uint32_t events)
     // step 2
     if ((!waiting_for_adc1) && (!waiting_for_adc2)) {
         // Both adc's have been read! push the row data onto the queue
-        row_item.row_data = row_data;
+        memcpy(row_item.row_data, row_data, ROW_WIDTH);
 
         queue_add_blocking(mat_queue_ptr, &row_item);
 
@@ -181,8 +182,8 @@ void read_mat(queue_t *mat_queue, struct adc_inst *adc1, struct adc_inst *adc2)
     adc1_instance = adc1;
     adc2_instance = adc2;
     
-    waiting_for_adc1 = false;
-    waiting_for_adc2 = false;
+    waiting_for_adc1 = true;
+    waiting_for_adc2 = true;
 
     column = 0;
 

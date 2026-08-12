@@ -30,7 +30,7 @@ registers and ADC's to read the mat in partial or in full for the PMI software v
 
 // Each queueItem contains one row of the mat
 typedef struct queueItem {
-  uint8_t *row_data;
+  uint8_t row_data[ROW_WIDTH];
 } item;
 
 /*

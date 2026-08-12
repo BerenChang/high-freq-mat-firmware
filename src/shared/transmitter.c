@@ -44,6 +44,8 @@ void transmit_verification()
     putchar_raw(254);
     putchar_raw(254);
     putchar_raw(255);
+
+    fflush(stdout);
 }
 
 void transmit_row(uint8_t *row)
@@ -53,7 +55,6 @@ void transmit_row(uint8_t *row)
     for (i = 0; i < ROW_WIDTH; i++) {
         putchar_raw(row[i]);
     }
-    fflush(stdout);
 
     // does not close with newline: to finish transmission, send the verification sequence
 }

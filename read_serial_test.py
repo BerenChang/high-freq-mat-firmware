@@ -121,10 +121,11 @@ def read_serial():
         data_buffer = subarray.tolist()
 
         print_count += 1
+        print(print_count)
 
-        if print_count > 100:
-            ser.write((STOP_READING_COMMAND + '\n').encode('utf-8'))
-            break
+        # if print_count > 100:
+        #     ser.write((STOP_READING_COMMAND + '\n').encode('utf-8'))
+        #     break
 
 
 def read_serial_once():
