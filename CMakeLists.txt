@@ -12,6 +12,8 @@ set(CMAKE_CXX_STANDARD 17)
 # initialize the Raspberry Pi Pico SDK
 pico_sdk_init()
 
+set(ROW_SETTLING_DELAY_US 50 CACHE STRING "Board v2 row settling delay in microseconds (0 disables)")
+
 include_directories("src/shared" "inc/shared")
 
 # legacy build target for board v1
@@ -41,6 +43,7 @@ add_executable(board_v2_slow
 )
 target_include_directories(board_v2_slow PRIVATE "inc/board_v2" PRIVATE "src/board_v2")
 target_compile_definitions(board_v2_slow PRIVATE THROTTLE_SLEEP_MS=100) # throttle the slow version of the board v2 software
+target_compile_definitions(board_v2_slow PRIVATE ROW_SETTLING_DELAY_US=${ROW_SETTLING_DELAY_US})
 
 # full speed target for board v2
 add_executable(board_v2
@@ -56,6 +59,7 @@ add_executable(board_v2
 )
 target_include_directories(board_v2 PRIVATE "inc/board_v2" PRIVATE "src/board_v2")
 target_compile_definitions(board_v2 PRIVATE THROTTLE_SLEEP_MS=0) # do not throttle the fast version of the board v2 software
+target_compile_definitions(board_v2 PRIVATE ROW_SETTLING_DELAY_US=${ROW_SETTLING_DELAY_US})
 
 
 target_link_libraries(board_v1 pico_stdlib pico_multicore hardware_spi)

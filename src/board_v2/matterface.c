@@ -134,6 +134,10 @@ void EOC_callback(uint gpio, uint32_t events)
 
         // set up the shift registers for the next adc sample requests
         shift_shreg(0);
+        if (column + 1 < COL_HEIGHT) {
+            // Let the selected row settle before either ADC starts conversion.
+            busy_wait_us_32(ROW_SETTLING_DELAY_US);
+        }
         column++;
 
         // if column == COL_HEIGHT, then we are finished and should requet any more readings
@@ -176,6 +180,8 @@ void read_mat(queue_t *mat_queue, struct adc_inst *adc1, struct adc_inst *adc2)
     // start with a one in the shregs
     shift_shreg(1); // shift in a one
     shift_shreg(0); // move the one to the output line
+    // Busy wait is also safe in the EOC interrupt path used for later rows.
+    busy_wait_us_32(ROW_SETTLING_DELAY_US);
 
     // set up the global variables for interrupt handling
     mat_queue_ptr = mat_queue;

@@ -22,6 +22,19 @@ The embedded code has three build targets: board_v1, board_v2, and board_v2_slow
 
 4. Copy the uf2 file of the build target you want to program the pico with to the pico's flash to program it.
 
+### Board v2 row settling delay
+
+Both `board_v2` and `board_v2_slow` wait 50 microseconds after selecting each
+physical row and before requesting conversions from either MAX11643. The wait
+runs once per acquired row, including the first row of each frame, and uses an
+interrupt-safe busy wait. Setup shifts and the final shift out do not add a
+settling wait. Existing GPIO/SPI timing and scan order are unchanged.
+
+Configure the delay when running CMake, for example
+`cmake .. -DROW_SETTLING_DELAY_US=50`. Use `0` to disable the added wait for an
+A/B comparison, then rebuild the desired target. The default adds 2.8 ms of
+explicit settling time per 56-row frame. Board v1 is unaffected.
+
 ### Communicating With The Board
 
 After connecting the programmed RPi Pico to your computer via usb, it can be talked to over serial. The board can understand the following commands:
